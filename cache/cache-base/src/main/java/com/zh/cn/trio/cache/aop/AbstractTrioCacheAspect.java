@@ -77,6 +77,10 @@ public abstract class AbstractTrioCacheAspect {
 			throws Throwable {
 		// 读缓存模式
 		CacheModel cacheModel = getCacheModelMap().get(cacheStrategyInfo.getTrioCacheBean().getCacheModel());
+		if (cacheModel == null) {
+			cacheModel = getCacheModelMap().get(CacheModel.READ_WRITE);
+		}
+
 		// 读缓存策略
 		CacheStrategy cacheStrategy = getStrategyMap().get(cacheStrategyInfo.getTrioCacheBean().getCacheStrategy());
 		// 没有配置缓存策略 并且 只存在一个缓存策略

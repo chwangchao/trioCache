@@ -28,6 +28,15 @@ public class TestCase {
 		System.out.println(userBean);
 		System.out.println(userBean.getClass());
 	}
+	
+	@Test
+	public void test_getByid_xml() throws Exception {
+		UserBean userBean = face.getByid_xml(1);
+		System.out.println(userBean);
+		userBean = face.getByid_xml(1);
+		System.out.println(userBean);
+		System.out.println(userBean.getClass());
+	}
 
 	@Test
 	public void test_getAll() throws Exception {

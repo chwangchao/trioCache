@@ -20,21 +20,20 @@ public class FaceImpl implements Face {
 		}
 	}
 
-	@TrioCache(cacheTime=10000)
+	@TrioCache(cacheTime = 10000)
 	@Override
 	public UserBean getByid(int id) {
 		System.out.println("getByid");
 		return LIST.get(id);
 	}
-	
+
 	@Override
 	public UserBean getByid_xml(int id) {
 		System.out.println("getByid_xml");
 		return LIST.get(id);
 	}
-	
 
-	@TrioCache(cacheTime=10000,cacheModel=CacheModel.READ_WRITE_FLUSH)
+	@TrioCache(cacheTime = 10000, cacheModel = CacheModel.READ_WRITE_FLUSH)
 	@Override
 	public List<UserBean> getAll() {
 		System.out.println("getAll");
@@ -46,5 +45,5 @@ public class FaceImpl implements Face {
 		System.out.println("getAll_xml");
 		return LIST;
 	}
-	
+
 }

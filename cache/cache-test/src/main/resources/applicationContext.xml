@@ -10,11 +10,11 @@
 	<context:component-scan base-package="com.zh.cn.trio">
 	</context:component-scan>
 
-	<!-- 缓存策略 如果只有一个可以不写名字  如果有多个在注解或者配置中cacheStrategy的值填写该对象的getName()方法的返回值-->
+	<!-- 缓存策略 如果只有一个可以不写名字 如果有多个在注解或者配置中cacheStrategy的值填写该对象的getName()方法的返回值 -->
 	<bean class="com.zh.cn.trio.cache.redis.strategy.redisStrategy"></bean>
 
 	<!-- 开启注册缓存配置 -->
-	<bean class="com.zh.cn.trio.cache.aop.TrioCacheAnnotationAspect"></bean>
+	 <bean class="com.zh.cn.trio.cache.aop.TrioCacheAnnotationAspect"></bean> 
 
 	<!-- 自动代理 和注解缓存一起使用 -->
 	<aop:aspectj-autoproxy proxy-target-class="true">
@@ -25,21 +25,29 @@
 		</property>
 	</bean>
 
-	<bean class="com.zh.cn.trio.cache.aop.TrioCacheXmlAspect">
+	<bean id="xmlCache" class="com.zh.cn.trio.cache.aop.TrioCacheXmlAspect">
 		<property name="trioCacheBean" ref="xmlBean">
 		</property>
 	</bean>
-	
+
+	<aop:config>
+		<aop:aspect ref="xmlCache">
+			<aop:pointcut expression="execution(* test.path.business.*.*_xml(..))"
+				id="auto" />
+			<aop:around method="proxy" pointcut-ref="auto" />
+		</aop:aspect>
+	</aop:config>
+
 
 	<!-- =============================以下为测试工程配置========================================== -->
 
 	<context:property-placeholder location="classpath*:*.properties" />
-	
-	<!-- redis的操作实现类  自己的工程做自己的适配 -->
+
+	<!-- redis的操作实现类 自己的工程做自己的适配 -->
 	<bean class="test.path.redis.RedisStringOperationImpl">
 		<property name="jedisPool" ref="jedisPool"></property>
 	</bean>
-	
+
 	<!-- 测试接口 -->
 	<bean class="test.path.business.FaceImpl"></bean>
 

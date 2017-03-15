@@ -30,7 +30,7 @@ public interface CacheModel  {
 	public static final String READ_WRITE_FLUSH = "READ_WRITE_FLUSH";
 
 	/**
-	 * 删除 如果有缓存则删除缓存再执行
+	 * 删除 如果有缓存则执行再删除
 	 */
 	public static final String REMOVE = "REMOVE";
 

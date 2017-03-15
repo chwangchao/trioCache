@@ -19,11 +19,8 @@ public class RemoveCacheModel implements CacheModel {
 	@Override
 	public Object exec(ProceedingJoinPoint proceedingJoinPoint, CacheStrategy cacheStrategy,
 			CacheStrategyInfo cacheStrategyInfo) throws Throwable {
-		boolean b = cacheStrategy.hasCache(cacheStrategyInfo);
-		if (b) {
-			cacheStrategy.removeCache(cacheStrategyInfo);
-		}
 		Object rs = proceedingJoinPoint.proceed();
+		cacheStrategy.removeCache(cacheStrategyInfo);
 		return rs;
 	}
 
